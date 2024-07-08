@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
-            $table->softDelete();
+            $table->softDeletes();
 
         });
     }

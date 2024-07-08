@@ -18,7 +18,7 @@ use App\Http\Controllers\CareersController;
 
 require __DIR__.'/includes/general.php';
 require __DIR__.'/auth.php';
+/** SERVICES */
+require __DIR__.'/includes/services.php';
 
-
-Route::resource('servicios', ServicesController::class)->names('services');
 Route::resource('carreras', CareersController::class)->names('careers');

@@ -54,7 +54,11 @@
                 <!--end::Toolbar-->
                 <!--begin::Content-->
                 <div id="kt_app_content" class="app-content flex-column-fluid">
-                    @yield('root')
+                    <!--begin::Content container-->
+                    <div id="kt_app_content_container" class="app-container container-fluid">
+                        @yield('root')
+                    </div>
+                    <!--end::Content container-->
                 </div>
                 <!--end::Content-->
             </div>

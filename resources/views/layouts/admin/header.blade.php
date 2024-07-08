@@ -223,9 +223,9 @@
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5 pt-5">
-                            <form method="POST" action="/logout">
+                            <form method="POST" action="{{ route('logout') }}" onsubmit="$('#btn-logout').attr('disabled', true);$('#btn-logout').html('Cerrando...');$('#btn-logout').attr('disabled', true);">
                                 @csrf
-                                <button type="submit" class="menu-link px-5 bg-danger text-white w-100 justify-content-center" onclick="$(this).attr('disabled', true)">Cerrar sesión</button>
+                                <button type="submit" class="menu-link px-5 bg-danger text-white w-100 justify-content-center" id="btn-logout">Cerrar sesión</button>
                             </form>
                         </div>
                         <!--end::Menu item-->

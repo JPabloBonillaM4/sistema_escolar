@@ -10,7 +10,7 @@ class GeneralController extends Controller
      * Index - Login
      */
     public function index() {
-        return view('pages.login');
+        return redirect()->route('login');
     }
 
     /**

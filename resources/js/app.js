@@ -1,7 +1,7 @@
 import './bootstrap';
 toastr.options = {
-    "closeButton"   : false,
-    "positionClass" : 'toastr-top-center'
+    // "closeButton"   : false,
+    // "positionClass" : 'toastr-top-center'
 }
 // Vue instance
 import { createApp } from 'vue';
@@ -9,9 +9,11 @@ import { createApp } from 'vue';
 import tablePaginationPersonalize from './components/globals/pagination-personalize.vue';
 // Start:Components - Vue
 import loginComponent from './components/login/index.vue';
+import servicesComponent from './components/admin/services/index.vue';
 const app = createApp({
     components : {
-        loginComponent
+        "login-component" : loginComponent,
+        "services-component" : servicesComponent
     }
 });
 app.component("table-pagination", tablePaginationPersonalize);
