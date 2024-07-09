@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" tabindex="-1" id="modal-form-services">
+    <div class="modal fade" tabindex="-1" id="modal-form-careers">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -13,8 +13,17 @@
                 </div>
                 <form @submit.prevent="saveData">
                     <div class="modal-body">
-                        <label>Nombre</label>
-                        <input type="text" v-model="form.name" class="form-control bg-transparent" placeholder="Ingresar el nombre del servicio">
+                        <div class="mb-5">
+                            <label>Nombre</label>
+                            <input type="text" v-model="form.name" class="form-control bg-transparent" placeholder="Ingresar el nombre de la carrera">
+                        </div>
+                        <div class="mb-5">
+                            <label for="">Servicio</label>
+                            <select id="select-input-service" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal-form-careers" data-placeholder="Seleccione una opción" style="width: 100%;">
+                                <option></option>
+                                <option v-for="service in services_options" :value="service.id">{{ service.name }}</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
@@ -32,35 +41,60 @@
 export default {
     data() {
         return {
-            title  : 'Agregar servicio',
+            title  : 'Agregar carrera',
             mode   : 'create',
             saving : false,
+            services_options : [],
             form : {
                 id : 0,
-                name : null
+                name : null,
+                service_id : null
             }
         }
     },
+    mounted() {
+        this.select2Activate();
+    },
     methods: {
+        select2Activate() {
+            let _this = this;
+            $('#select-input-service').on('change', function() {
+                _this.form.service_id = $(this).val();
+            });
+        },
         openModal(data = null) {
             this.resetData();
+            this.getServices();
             if(data){
-                this.title = 'Editar servicio';
+                this.title = 'Editar carrera';
                 this.mode  = 'edit';
                 this.setFormData(data);
             } else {
                 this.mode = 'create';
                 this.data = null;
             }
-            $('#modal-form-services').modal('show');
+            $('#modal-form-careers').modal('show');
+        },
+        getServices() {
+            let _this = this;
+            axios.get('/get-services').then(function(response){
+                _this.services_options = response.data;
+            });
         },
         setFormData(data) {
             this.form.id   = data.id;
             this.form.name = data.name;
+            $('#select-input-service').val(data.service_id);
+            $('#select-input-service').trigger('change');
         },
         validateData() {
             if(!this.form.name){
                 toastr.warning('Ingrese un nombre');
+                return false;
+            }
+
+            if(!this.form.service_id){
+                toastr.warning('Seleccione un servicio');
                 return false;
             }
 
@@ -70,6 +104,9 @@ export default {
             this.saving    = false;
             this.form.id   = 0;
             this.form.name = null;
+            this.form.service_id = null;
+            $('#select-input-service').val(null);
+            $('#select-input-service').trigger('change');
         },
         saveData() {
             if(this.validateData()){
@@ -77,16 +114,16 @@ export default {
                 this.saving          = true;
                 let _this            = this;
                 if(this.mode == 'edit'){
-                    response_request = axios.put(`/servicios/${this.form.id}`,this.form);
+                    response_request = axios.put(`/carreras/${this.form.id}`,this.form);
                 } else {
-                    response_request = axios.post('/servicios',this.form);
+                    response_request = axios.post('/carreras',this.form);
                 }
                 if(response_request) {
                     response_request.then(function(response){
                         response = response.data;
                         if(!response.error){
                             toastr.success(response.message);
-                            $('#modal-form-services').modal('hide');
+                            $('#modal-form-careers').modal('hide');
                             _this.$emit("refreshData");
                         } else {
                             toastr.error(response.message);

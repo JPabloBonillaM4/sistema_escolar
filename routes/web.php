@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\CareersController;
 use App\Http\Controllers\SubjectsController;
 
 /*
@@ -21,7 +18,7 @@ require __DIR__.'/includes/general.php';
 require __DIR__.'/auth.php';
 /** SERVICES */
 require __DIR__.'/includes/services.php';
-
-Route::resource('carreras', CareersController::class)->names('careers');
+/** CAREERS */
+require __DIR__.'/includes/careers.php';
 
 Route::resource('materias', SubjectsController::class)->names('subjects');

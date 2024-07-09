@@ -1,8 +1,14 @@
 <template>
     <div class="mt-5">
         <div class="row mb-5">
-            <div class="col-md-10">
+            <div class="col-md-5">
                 <input type="text" v-model="filters.text" class="form-control bg-transparent" placeholder="Buscar..." @input="getData">
+            </div>
+            <div class="col-md-5">
+                <select id="select-input-filter-service" class="form-select form-select-solid" multiple data-control="select2" data-placeholder="Seleccione 1 o más servicios" style="width: 100%;">
+                    <option></option>
+                    <option v-for="service in services_options" :value="service.id">{{ service.name }}</option>
+                </select>
             </div>
             <div class="col-md-2 text-center">
                 <button class="btn btn-success btn-sm" @click="createModal">Nuevo <i class="bi bi-plus-lg"></i></button>
@@ -14,12 +20,16 @@
                     <thead>
                         <tr class="fw-bold fs-6 text-gray-800 text-center">
                             <th>Nombre</th>
+                            <th>Servicio</th>
+                            <th>Código</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody class="text-center" v-if="data.length > 0">
                         <tr v-for="item in data">
                             <td>{{ item.name }}</td>
+                            <td>{{ item.service ? item.service.name : 'N/A' }}</td>
+                            <td>{{ item.code }}</td>
                             <td>
                                 <button class="btn btn-sm btn-icon btn-warning me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" @click="editModal(item)"><i class="bi bi-pencil-fill"></i></button>
                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar" @click="deleteRecord(item)"><i class="bi bi-trash-fill"></i></button>
@@ -28,7 +38,7 @@
                     </tbody>
                     <tbody v-else>
                         <tr class="text-center">
-                            <td colspan="2">Sin registros</td>
+                            <td colspan="4">Sin registros</td>
                         </tr>
                     </tbody>
                 </table>
@@ -56,8 +66,10 @@ export default {
             current_page      : 1,
             page_size         : 5,
             total_length_data : 0,
+            services_options  : [],
             filters : {
-                text : null
+                text : null,
+                services_ids : []
             },
         }
     },
@@ -66,15 +78,30 @@ export default {
     },
     mounted() {
         this.getData();
+        this.getServices();
+        this.select2Activate();
     },
     methods: {
+        select2Activate() {
+            let _this = this;
+            $('#select-input-filter-service').on('change', function() {
+                _this.filters.services_ids = $(this).val();
+                _this.getData();
+            });
+        },
         setPage (val) {
             this.current_page = val;
             this.getData();
         },
+        getServices() {
+            let _this = this;
+            axios.get('/get-services').then(function(response){
+                _this.services_options = response.data;
+            });
+        },
         getData() {
             let _this = this;
-            axios.get('/get-services',{
+            axios.get('/get-careers',{
                 params : {
                     filters   : this.filters,
                     paginated : true,
@@ -97,14 +124,14 @@ export default {
         deleteRecord(data) {
             let _this = this;
             Swal.fire({
-                text: `¿Está seguro de eliminar el servicio ${data.name}?`,
+                text: `¿Está seguro de eliminar la carrera ${data.name}?`,
                 icon: 'question',
                 showDenyButton: true,
                 confirmButtonText: "Si",
                 denyButtonText: `No, cancelar`
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`/servicios/${data.id}`).then(function(response){
+                    axios.delete(`/carreras/${data.id}`).then(function(response){
                         response = response.data;
                         if(!response.error){
                             toastr.success(response.message);
