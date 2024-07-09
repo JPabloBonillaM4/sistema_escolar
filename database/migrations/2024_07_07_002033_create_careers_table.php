@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('careers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code', 10);
             $table->bigInteger('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
