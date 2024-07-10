@@ -4,13 +4,11 @@
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
         <!--begin::Logo image-->
         <a href="index.html">
-            <img alt="Logo" src="assets/media/logos/default-dark.svg" class="h-25px app-sidebar-logo-default" />
-            <img alt="Logo" src="assets/media/logos/default-small.svg" class="h-20px app-sidebar-logo-minimize" />
         </a>
         <!--end::Logo image-->
         <!--begin::Sidebar toggle-->
         <!--begin::Minimized sidebar setup:
-                if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_state"] === "on") { 
+                if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_state"] === "on") {
                     1. "src/js/layout/sidebar.js" adds "sidebar_minimize_state" cookie value to save the sidebar minimize state.
                     2. Set data-kt-app-sidebar-minimize="on" attribute for body tag.
                     3. Set data-kt-toggle-state="active" attribute to the toggle element with "kt_app_sidebar_toggle" id.
@@ -110,7 +108,7 @@
                         <!--begin:Menu link-->
                         <a class="menu-link" href="{{ route('services.index') }}">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-rocket fs-2">
+                                <i class="bi bi-laptop">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -125,7 +123,7 @@
                         <!--begin:Menu link-->
                         <a class="menu-link" href="{{ route('careers.index') }}">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-rocket fs-2">
+                                <i class="bi bi-receipt-cutoff">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -140,7 +138,7 @@
                         <!--begin:Menu link-->
                         <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities" target="_blank">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-rocket fs-2">
+                                <i class="bi bi-person-vcard-fill">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -155,7 +153,7 @@
                         <!--begin:Menu link-->
                         <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities" target="_blank">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-rocket fs-2">
+                                <i class="bi bi-qr-code-scan">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -170,7 +168,7 @@
                         <!--begin:Menu link-->
                         <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities" target="_blank">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-rocket fs-2">
+                                <i class="bi bi-file-person">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -185,7 +183,7 @@
                         <!--begin:Menu link-->
                         <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities" target="_blank">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-rocket fs-2">
+                                <i class="bi bi-person-lines-fill">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
