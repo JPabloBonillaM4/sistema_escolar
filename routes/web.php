@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubjectsController;
+use App\Http\Controllers\PeriodsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,5 @@ require __DIR__.'/includes/services.php';
 require __DIR__.'/includes/careers.php';
 
 Route::resource('materias', SubjectsController::class)->names('subjects');
+
+Route::resource('periodos', PeriodsController::class)->names('periods');

@@ -25,6 +25,11 @@ class User extends Authenticatable
     ];
 
     /**
+     * Appends
+     */
+    protected $appends = ['fullname'];
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
@@ -43,4 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getFullnameAttribute() { // fullname
+        return $this->name.' '.$this->last_name;
+    }
 }
