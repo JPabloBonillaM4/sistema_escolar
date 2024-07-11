@@ -214,12 +214,6 @@
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu separator-->
-                        <div class="separator my-2"></div>
-                        <!--end::Menu separator-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <a href="account/statements.html" class="menu-link px-5">Mis actividades</a>
-                        </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5 pt-5">

@@ -6,11 +6,11 @@
             <div class="d-flex flex-center flex-lg-start flex-column">
                 <!--begin::Logo-->
                 <a href="index.html" class="mb-7">
-                    <img alt="Logo" src="assets/media/logos/custom-3.svg" />
+
                 </a>
                 <!--end::Logo-->
                 <!--begin::Title-->
-                <h2 class="text-white fw-normal m-0">Sistema de control escolar</h2>
+                <h2 class="text-white fw-normal m-0" style="font-size: 24px"> SISTEMA DE CONTROL ESCOLAR </h2>
                 <!--end::Title-->
             </div>
             <!--begin::Aside-->
@@ -86,7 +86,7 @@
                         </div>
                         <!--end::Submit button-->
                         <!--begin::Sign up-->
-                        <!-- <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet? 
+                        <!-- <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
                         <a href="authentication/layouts/creative/sign-up.html" class="link-primary">Sign up</a></div> -->
                         <!--end::Sign up-->
                     </form>
