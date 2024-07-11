@@ -10,7 +10,7 @@
                 </a>
                 <!--end::Logo-->
                 <!--begin::Title-->
-                <h2 class="text-white fw-normal m-2"> SISTEMA DE CONTROL ESCOLAR </h2>
+                <h2 class="text-white fw-normal m-0" style="font-size: 24px"> SISTEMA DE CONTROL ESCOLAR </h2>
                 <!--end::Title-->
             </div>
             <!--begin::Aside-->
