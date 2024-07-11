@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\PeriodsController;
 
 /*
@@ -21,7 +20,7 @@ require __DIR__.'/auth.php';
 require __DIR__.'/includes/services.php';
 /** CAREERS */
 require __DIR__.'/includes/careers.php';
-
-Route::resource('materias', SubjectsController::class)->names('subjects');
+/** SUBJECTS */
+require __DIR__.'/includes/subjects.php';
 
 Route::resource('periodos', PeriodsController::class)->names('periods');

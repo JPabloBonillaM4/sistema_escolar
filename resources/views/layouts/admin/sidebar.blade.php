@@ -136,7 +136,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities" target="_blank">
+                        <a class="menu-link" href="{{ route('subjects.index') }}">
                             <span class="menu-icon">
                                 <i class="bi bi-person-vcard-fill">
                                     <span class="path1"></span>

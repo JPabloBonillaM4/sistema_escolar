@@ -11,11 +11,13 @@ import tablePaginationPersonalize from './components/globals/pagination-personal
 import loginComponent from './components/login/index.vue';
 import servicesComponent from './components/admin/services/index.vue';
 import careersComponent from './components/admin/careers/index.vue';
+import subjectsComponent from './components/admin/subjects/index.vue';
 const app = createApp({
     components : {
         "login-component" : loginComponent,
         "services-component" : servicesComponent,
-        "careers-component" : careersComponent
+        "careers-component" : careersComponent,
+        "subjects-component" : subjectsComponent
     }
 });
 app.component("table-pagination", tablePaginationPersonalize);

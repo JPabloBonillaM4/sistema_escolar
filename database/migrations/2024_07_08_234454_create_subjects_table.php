@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('code', 10);
+            $table->tinyInteger('type')->comment('1: Obligatoria, 2: No obligatoria');
+            $table->foreignId('career_id')->nullable()->references('id')->on('careers')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

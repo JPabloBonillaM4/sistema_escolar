@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code', 10);
-            $table->bigInteger('service_id')->unsigned();
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->bigInteger('service_id')->nullable()->unsigned();
+            $table->foreign('service_id')->references('id')->on('services')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
