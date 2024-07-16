@@ -121,7 +121,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('careers.index') }}">
+                        <a class="menu-link {{ $actual_route == 'careers.index' ? 'active' : '' }}" href="{{ route('careers.index') }}">
                             <span class="menu-icon">
                                 <i class="bi bi-receipt-cutoff">
                                     <span class="path1"></span>
@@ -136,7 +136,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('subjects.index') }}">
+                        <a class="menu-link {{ $actual_route == 'subjects.index' ? 'active' : '' }}" href="{{ route('subjects.index') }}">
                             <span class="menu-icon">
                                 <i class="bi bi-person-vcard-fill">
                                     <span class="path1"></span>
@@ -151,7 +151,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('periods.index') }}">
+                        <a class="menu-link {{ $actual_route == 'periods.index' ? 'active' : '' }}" href="{{ route('periods.index') }}">
                             <span class="menu-icon">
                                 <i class="bi bi-qr-code-scan">
                                     <span class="path1"></span>
