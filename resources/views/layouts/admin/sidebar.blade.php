@@ -106,7 +106,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('services.index') }}">
+                        <a class="menu-link {{ $actual_route == 'services.index' ? 'active' : '' }}" href="{{ route('services.index') }}">
                             <span class="menu-icon">
                                 <i class="bi bi-laptop">
                                     <span class="path1"></span>
@@ -151,7 +151,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities" target="_blank">
+                        <a class="menu-link" href="{{ route('periods.index') }}">
                             <span class="menu-icon">
                                 <i class="bi bi-qr-code-scan">
                                     <span class="path1"></span>

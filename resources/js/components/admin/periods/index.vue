@@ -4,12 +4,12 @@
             <div class="col-md-5">
                 <input type="text" v-model="filters.text" class="form-control bg-transparent" placeholder="Buscar..." @input="getData">
             </div>
-            <div class="col-md-5">
+            <!-- <div class="col-md-5">
                 <select id="select-input-filter-career" class="form-select form-select-solid" multiple data-control="select2" data-placeholder="Seleccione 1 o más carreras" style="width: 100%;">
                     <option></option>
                     <option v-for="career in careers_options" :value="career.id">{{ career.name }}</option>
                 </select>
-            </div>
+            </div> -->
             <div class="col-md-2 text-center">
                 <button class="btn btn-success btn-sm" @click="createModal">Nuevo <i class="bi bi-plus-lg"></i></button>
             </div>
@@ -20,21 +20,13 @@
                     <thead>
                         <tr class="fw-bold fs-6 text-gray-800 text-center">
                             <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>¿Es obligatoria?</th>
-                            <th>Carrera</th>
+                            <th>Rango del periodo</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody class="text-center" v-if="data.length > 0">
                         <tr v-for="item in data">
                             <td>{{ item.name }}</td>
-                            <td>{{ item.description }}</td>
-                            <td>
-                                <span v-if="item.type == 1">Si</span>
-                                <span v-if="item.type == 2">No</span>
-                            </td>
-                            <td>{{ item.career ? item.career.name : 'N/R' }}</td>
                             <td>
                                 <button class="btn btn-sm btn-icon btn-warning me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" @click="editModal(item)"><i class="bi bi-pencil-fill"></i></button>
                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="right" title="Eliminar" @click="deleteRecord(item)"><i class="bi bi-trash-fill"></i></button>
@@ -43,7 +35,7 @@
                     </tbody>
                     <tbody v-else>
                         <tr class="text-center">
-                            <td colspan="5">Sin registros</td>
+                            <td colspan="3">Sin registros</td>
                         </tr>
                     </tbody>
                 </table>
@@ -71,10 +63,10 @@ export default {
             current_page      : 1,
             page_size         : 5,
             total_length_data : 0,
-            careers_options   : [],
+            // careers_options   : [],
             filters : {
                 text : null,
-                careers_ids : [],
+                // careers_ids : [],
             },
         }
     },
@@ -83,30 +75,30 @@ export default {
     },
     mounted() {
         this.getData();
-        this.getCareers();
-        this.select2Activate();
+        // this.getCareers();
+        // this.select2Activate();
     },
     methods: {
-        select2Activate() {
-            let _this = this;
-            $('#select-input-filter-career').on('change', function() {
-                _this.filters.careers_ids = $(this).val();
-                _this.getData();
-            });
-        },
+        // select2Activate() {
+        //     let _this = this;
+        //     $('#select-input-filter-career').on('change', function() {
+        //         _this.filters.careers_ids = $(this).val();
+        //         _this.getData();
+        //     });
+        // },
         setPage (val) {
             this.current_page = val;
             this.getData();
         },
-        getCareers() {
-            let _this = this;
-            axios.get('/get-careers').then(function(response){
-                _this.careers_options = response.data;
-            });
-        },
+        // getCareers() {
+        //     let _this = this;
+        //     axios.get('/get-careers').then(function(response){
+        //         _this.careers_options = response.data;
+        //     });
+        // },
         getData() {
             let _this = this;
-            axios.get('/get-subjects',{
+            axios.get('/get-periods',{
                 params : {
                     filters   : this.filters,
                     paginated : true,
@@ -136,7 +128,7 @@ export default {
                 denyButtonText: `No, cancelar`
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`/materias/${data.id}`).then(function(response){
+                    axios.delete(`/periodos/${data.id}`).then(function(response){
                         response = response.data;
                         if(!response.error){
                             toastr.success(response.message);

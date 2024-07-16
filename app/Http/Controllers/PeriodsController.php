@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Period;
 use Illuminate\Http\Request;
 
 class PeriodsController extends Controller
@@ -11,37 +12,13 @@ class PeriodsController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('pages.admin.periods_index');
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
     {
         //
     }
@@ -60,5 +37,22 @@ class PeriodsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * getAll
+     */
+    public function getAll() {
+        $request = request();
+        $data    = Period::query();
+        // FILTERS
+        if(!is_null($request->filters)){
+            $filters = is_string($request->filters) ? json_decode($request->filters) : (object)$request->filters;
+            if(isset($filters->text) && !is_null($filters->text) && $filters->text != ''){ // By text
+                $text = trim($filters->text);
+                $data->where('name','LIKE',"%$text%");
+            }
+        }
+        return $request->paginated ? $data->paginate(5) : $data->get();
     }
 }

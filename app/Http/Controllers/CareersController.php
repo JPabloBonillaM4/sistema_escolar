@@ -23,18 +23,23 @@ class CareersController extends Controller
         $error   = false;
         $message = null;
 
-        $code = $this->generateUniqueCodeCareers($request->name);
-        $created = Career::create([
-            'name' => $request->name,
-            'service_id' => $request->service_id,
-            'code' => $code
-        ]);
-
-        if($created) {
-            $message = 'Carrera generada exitosamente';
-        } else {
+        if(Career::where(['name' => $request->name, 'service_id' => $request->service_id])->first()){
             $error   = true;
-            $message = 'Error al generar la carrera, intente nuevamente';
+            $message = 'La carrera deseada ya existe, intente con una diferente';
+        } else {
+            $code = $this->generateUniqueCodeCareers($request->name);
+            $created = Career::create([
+                'name' => $request->name,
+                'service_id' => $request->service_id,
+                'code' => $code
+            ]);
+
+            if($created) {
+                $message = 'Carrera generada exitosamente';
+            } else {
+                $error   = true;
+                $message = 'Error al generar la carrera, intente nuevamente';
+            }
         }
 
         return ['error' => $error, 'message' => $message];
@@ -50,6 +55,13 @@ class CareersController extends Controller
 
         $record  = Career::find($id);
         if($record){
+            if($record->name != $request->name || $record->service_id != $request->service_id){ // If the name or service is different from the current one, check if already exists
+                if(Career::where(['name' => $request->name, 'service_id' => $request->service_id])->first()){
+                    $error   = true;
+                    $message = 'La carrera deseada ya existe, intente con una diferente';
+                    return ['error' => $error, 'message' => $message];
+                }
+            }
             $updated = $record->update(['name' => $request->name, 'service_id' => $request->service_id]);
             if($updated) {
                 $message = 'Carrera editada exitosamente';
@@ -125,19 +137,7 @@ class CareersController extends Controller
         $size_maximo  = strlen($string) - 1;
         if(count($actual_codes) > 0){
             // Verificar si el prefijo ya existe y si es así, ajustarlo
-            if($actual_codes->contains($prefijo)){ // Si el prefijo ya existe, cambiar el 2do caracter y verificar nuevamente
-                if($ultima_posicion <= $size_maximo){
-                    $ultima_posicion++;
-                    $segundo_caracter = substr($string, $ultima_posicion , 1);
-                    $prefijo          = $primer_caracter.$segundo_caracter;
-                } else {
-                    if($ultima_posicion > $size_maximo){
-
-                    } else {
-                        $prefijo_generado = true;
-                    }
-                }
-            } else {
+            if(!$actual_codes->contains($prefijo)){ // Si el prefijo ya existe, cambiar el 2do caracter y verificar nuevamente
                 $prefijo_generado = true;
             }
         } else {

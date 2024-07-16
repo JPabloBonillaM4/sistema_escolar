@@ -17,8 +17,9 @@ return new class extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->tinyInteger('type_groups')->comment('1: Unico, 2: Multiple');
-            $table->tinyInteger('type_partials')->comment('1: Unico, 2: Multiple');
+            $table->tinyInteger('type_partials')->comment('1: Unico, 2: Multiple');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

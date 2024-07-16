@@ -22,5 +22,5 @@ require __DIR__.'/includes/services.php';
 require __DIR__.'/includes/careers.php';
 /** SUBJECTS */
 require __DIR__.'/includes/subjects.php';
-
-Route::resource('periodos', PeriodsController::class)->names('periods');
+/** PERIODS */
+require __DIR__.'/includes/periods.php';

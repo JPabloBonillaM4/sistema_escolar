@@ -14,13 +14,33 @@
                 <form @submit.prevent="saveData">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-10">
                                 <label>Nombre</label>
                                 <input type="text" v-model="form.name" class="form-control bg-transparent" placeholder="Ingresar el nombre de la materia">
                             </div>
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-10">
                                 <label>Descripción</label>
                                 <textarea v-model="form.description" class="form-control bg-transparent" placeholder="Ingresar la descripción de la materia" rows="2"></textarea>
+                            </div>
+                            <div class="col-md-6 mb-10 text-center">
+                                <label for="">Tipo de materia</label>
+                                <div class="form-check form-check-custom form-check-solid justify-content-center">
+                                    <input class="form-check-input me-1" type="radio" v-model="form.type" :value="1" id="type_career_obligatoria" />
+                                    <label class="form-check-label me-10" for="type_career_obligatoria">
+                                        Obligatoria
+                                    </label>
+                                    <input class="form-check-input me-1" type="radio" v-model="form.type" :value="2" id="type_career_no_obligatoria" />
+                                    <label class="form-check-label" for="type_career_no_obligatoria">
+                                        No obligatoria
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-10">
+                                <label for="">Carrera</label>
+                                <select id="select-input-career" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal-form-subjects" data-placeholder="Seleccione una opción" style="width: 100%;">
+                                    <option></option>
+                                    <option v-for="career in careers_options" :value="career.id">{{ career.name }}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -43,16 +63,35 @@ export default {
             title  : 'Agregar materia',
             mode   : 'create',
             saving : false,
+            careers_options : [],
             form : {
                 id : 0,
                 name : null,
-                description : null
+                description : null,
+                type : null,
+                career_id : 0
             }
         }
     },
+    mounted() {
+        this.select2Activate();
+    },
     methods: {
+        select2Activate() {
+            let _this = this;
+            $('#select-input-career').on('change', function() {
+                _this.form.career_id = $(this).val();
+            });
+        },
+        getCareers() {
+            let _this = this;
+            axios.get('/get-careers').then(function(response){
+                _this.careers_options = response.data;
+            });
+        },
         openModal(data = null) {
             this.resetData();
+            this.getCareers();
             if(data){
                 this.title = 'Editar materia';
                 this.mode  = 'edit';
@@ -66,6 +105,12 @@ export default {
         setFormData(data) {
             this.form.id   = data.id;
             this.form.name = data.name;
+            this.form.description = data.description;
+            this.form.type = data.type;
+            setTimeout(() => {
+                $('#select-input-career').val(data.career_id);
+                $('#select-input-career').trigger('change');
+            }, 250);
         },
         validateData() {
             if(!this.form.name){
@@ -78,6 +123,16 @@ export default {
                 return false;
             }
 
+            if(!this.form.type){
+                toastr.warning('Seleccione el tipo de materia');
+                return false;
+            }
+
+            if(!this.form.career_id){
+                toastr.warning('Seleccione la carrera relacionada');
+                return false;
+            }
+
             return true;
         },
         resetData(){
@@ -85,11 +140,14 @@ export default {
             this.form.id   = 0;
             this.form.name = null;
             this.form.description = null;
+            this.form.type = null;
+            setTimeout(() => {
+                $('#select-input-career').val(null);
+                $('#select-input-career').trigger('change');
+            }, 250);
         },
         saveData() {
             if(this.validateData()){
-                alert('works');
-                return false;
                 let response_request = null;
                 this.saving          = true;
                 let _this            = this;

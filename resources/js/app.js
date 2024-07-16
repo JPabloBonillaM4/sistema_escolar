@@ -12,12 +12,14 @@ import loginComponent from './components/login/index.vue';
 import servicesComponent from './components/admin/services/index.vue';
 import careersComponent from './components/admin/careers/index.vue';
 import subjectsComponent from './components/admin/subjects/index.vue';
+import periodsComponent from './components/admin/periods/index.vue';
 const app = createApp({
     components : {
         "login-component" : loginComponent,
         "services-component" : servicesComponent,
         "careers-component" : careersComponent,
-        "subjects-component" : subjectsComponent
+        "subjects-component" : subjectsComponent,
+        "periods-component" : periodsComponent
     }
 });
 app.component("table-pagination", tablePaginationPersonalize);

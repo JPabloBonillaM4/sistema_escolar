@@ -84,8 +84,10 @@ export default {
         setFormData(data) {
             this.form.id   = data.id;
             this.form.name = data.name;
-            $('#select-input-service').val(data.service_id);
-            $('#select-input-service').trigger('change');
+            setTimeout(() => {
+                $('#select-input-service').val(data.service_id);
+                $('#select-input-service').trigger('change');
+            }, 250);
         },
         validateData() {
             if(!this.form.name){
@@ -105,8 +107,10 @@ export default {
             this.form.id   = 0;
             this.form.name = null;
             this.form.service_id = null;
-            $('#select-input-service').val(null);
-            $('#select-input-service').trigger('change');
+            setTimeout(() => {
+                $('#select-input-service').val(null);
+                $('#select-input-service').trigger('change');
+            }, 250);
         },
         saveData() {
             if(this.validateData()){
